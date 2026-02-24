@@ -43,11 +43,19 @@ export default function Login() {
     return Object.keys(errors).length === 0;
   };
 
-  const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    // Prevent default form submission — this stops the page refresh
     e.preventDefault();
-    setError('');
+    e.stopPropagation();
 
-    if (!validateForm()) return;
+    // Clear previous errors
+    setError('');
+    setFieldErrors({});
+
+    // Validate form fields
+    if (!validateForm()) {
+      return;
+    }
 
     setIsLoading(true);
 
@@ -55,9 +63,11 @@ export default function Login() {
       await login(username.trim(), password);
       toast.success('Welcome back!');
       navigate('/upload', { replace: true });
-    } catch (err) {
+    } catch (err: unknown) {
+      console.error('Login error:', err);
       const message = getErrorMessage(err);
       setError(message);
+      toast.error(message);
     } finally {
       setIsLoading(false);
     }
@@ -214,6 +224,7 @@ export default function Login() {
               type="submit"
               className="w-full h-11 text-sm font-semibold"
               isLoading={isLoading}
+              disabled={isLoading}
             >
               {isLoading ? 'Signing in...' : 'Sign in'}
             </Button>

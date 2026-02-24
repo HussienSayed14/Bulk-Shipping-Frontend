@@ -11,6 +11,9 @@ const client = axios.create({
   timeout: 30000,
 });
 
+// URLs that should NOT trigger token refresh on 401
+const AUTH_URLS = ['/auth/login/', '/auth/refresh/'];
+
 // ── Request interceptor: attach JWT token ──
 client.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
@@ -28,6 +31,13 @@ client.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
     const originalRequest = error.config as InternalAxiosRequestConfig & { _retry?: boolean };
+    const requestUrl = originalRequest?.url || '';
+
+    // If this is a login or refresh request, DON'T try to refresh — just let the error through
+    const isAuthUrl = AUTH_URLS.some((url) => requestUrl.includes(url));
+    if (isAuthUrl) {
+      return Promise.reject(error);
+    }
 
     // If 401 and we haven't retried yet, try refreshing the token
     if (error.response?.status === 401 && !originalRequest._retry) {
@@ -96,7 +106,7 @@ export function getErrorMessage(error: unknown): string {
     }
 
     // HTTP status fallbacks
-    if (error.response?.status === 401) return 'Session expired. Please log in again.';
+    if (error.response?.status === 401) return 'Invalid username or password.';
     if (error.response?.status === 403) return 'You don\'t have permission to do this.';
     if (error.response?.status === 404) return 'Resource not found.';
     if (error.response?.status === 500) return 'Server error. Please try again later.';
