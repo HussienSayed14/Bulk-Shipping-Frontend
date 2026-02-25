@@ -7,6 +7,8 @@ import AppLayout from './components/layout/AppLayout';
 import Login from './pages/Login';
 import Step1Upload from './pages/wizard/Step1Upload';
 import Step2Review from './pages/wizard/Step2Review';
+import Step3Shipping from './pages/wizard/Step3Shipping';
+import Purchase from './pages/wizard/Purchase';
 
 function Placeholder({ title }: { title: string }) {
   return <div className="flex items-center justify-center h-64"><p className="text-gray-400 text-lg">{title} — Coming soon</p></div>;
@@ -47,8 +49,8 @@ export default function App() {
             <Route path="/dashboard" element={<Placeholder title="Dashboard" />} />
             <Route path="/upload" element={<Step1Upload />} />
             <Route path="/review/:batchId" element={<Step2Review />} />
-            <Route path="/shipping/:batchId" element={<Placeholder title="Select Shipping" />} />
-            <Route path="/purchase/:batchId" element={<Placeholder title="Purchase" />} />
+            <Route path="/shipping/:batchId" element={<Step3Shipping />} />
+            <Route path="/purchase/:batchId" element={<Purchase />} />
             <Route path="/orders" element={<Placeholder title="Order History" />} />
             <Route path="/billing" element={<Placeholder title="Billing" />} />
           </Route>
