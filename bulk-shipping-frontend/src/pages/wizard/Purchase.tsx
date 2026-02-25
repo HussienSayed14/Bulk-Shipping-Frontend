@@ -8,7 +8,6 @@ import { Button } from "../../components/ui/button";
 import { LoadingSpinner } from "../../components/common/LoadingSpinner";
 import {
   ArrowLeft,
-  CheckCircle2,
   PartyPopper,
   FileText,
   Printer,
