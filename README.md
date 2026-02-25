@@ -128,8 +128,8 @@ Custom animations: `fade-in`, `fade-in-up`, `scale-in`, `slide-in-right` — def
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/shipping-label-platform.git
-cd shipping-label-platform/frontend
+git clone https://github.com/HussienSayed14/Bulk-Shipping-Frontend.git
+cd Bulk-Shipping-Frontend/bulk-shipping-frontend
 ```
 
 ### 2. Install dependencies
@@ -251,7 +251,3 @@ The frontend connects to the Django backend REST API. All requests go through th
 Make sure the backend is running and the `VITE_API_BASE_URL` points to it.
 
 ---
-
-## License
-
-This project is proprietary. All rights reserved.
