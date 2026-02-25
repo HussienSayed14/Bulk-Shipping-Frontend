@@ -8,7 +8,7 @@ export default function Header() {
       <div className="flex items-center gap-5">
         <div className="flex items-center gap-2 bg-emerald-50 text-emerald-700 px-3.5 py-1.5 rounded-lg border border-emerald-200">
           <Wallet className="h-4 w-4" />
-          <span className="text-sm font-semibold">${user?.profile?.balance?.toFixed(2) || '0.00'}</span>
+          <span className="text-sm font-semibold">${Number(user?.profile?.balance ?? 0).toFixed(2) || '0.00'}</span>
         </div>
         <div className="flex items-center gap-2.5">
           <div className="w-8 h-8 rounded-full bg-brand-100 flex items-center justify-center">
